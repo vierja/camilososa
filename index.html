@@ -1,24 +1,81 @@
-<html>
+<!DOCTYPE html>
+<html lang="es">
 <head>
-<title>Eleven.</title>
-<style>
-.titulo {
-  color:blue;
-}
-.description{
-  color:red;
-}
-body {
-cursor: url('https://cdn.custom-cursor.com/db/cursor/pointer_2898.png'), auto;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¡Feliz Cumpleaños Camilo!</title>
+    <style>
+        @keyframes rainbow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Comic Sans MS', cursive;
+            background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
+            background-size: 1800% 1800%;
+            animation: rainbow 18s ease infinite;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        h1 {
+            font-size: 4em;
+            color: #ff00ff;
+            text-shadow: 3px 3px 0 #00ffff, 6px 6px 0 #ff00ff;
+            animation: bounce 1s infinite;
+        }
+        .cake {
+            font-size: 100px;
+            animation: spin 3s linear infinite;
+        }
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f0f;
+            animation: fall 5s linear infinite;
+        }
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(720deg);
+            }
+        }
+    </style>
 </head>
 <body>
-<h1 class="titulo">
-Camilo Sosa 
-</h1>
-<p class="description">
-En este sitio web voy a hablar sobre mi vida personal.
-</p>
+    <div class="container">
+        <h1>¡Feliz Cumpleaños Camilo!</h1>
+        <div class="cake">🎂</div>
+        <marquee scrollamount="20" style="font-size: 2em; color: yellow;">¡15 AÑOS! ¡WOW! ¡INCREÍBLE! ¡FABULOSO!</marquee>
+    </div>
+    <script>
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+            confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            document.body.appendChild(confetti);
+            setTimeout(() => {
+                confetti.remove();
+            }, 5000);
+        }
+        setInterval(createConfetti, 100);
+    </script>
 </body>
 </html>
