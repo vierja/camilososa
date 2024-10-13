@@ -65,21 +65,28 @@
             0% { transform: translateX(100%); }
             100% { transform: translateX(-100%); }
         }
-        .confetti {
+        .confetti-container {
             position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        .confetti {
+            position: absolute;
             width: 10px;
             height: 10px;
-            background-color: #f0f;
-            animation: fall 5s linear infinite;
         }
         @keyframes fall {
-            to {
-                transform: translateY(100vh) rotate(720deg);
-            }
+            0% { transform: translateY(-5vh) rotate(0deg); }
+            100% { transform: translateY(105vh) rotate(720deg); }
         }
     </style>
 </head>
 <body>
+    <div class="confetti-container"></div>
     <div class="container">
         <h1>¡Feliz Cumpleaños Camilo!</h1>
         <div class="cake">🎂</div>
@@ -88,18 +95,29 @@
         </div>
     </div>
     <script>
+        const confettiContainer = document.querySelector('.confetti-container');
+
         function createConfetti() {
             const confetti = document.createElement('div');
             confetti.className = 'confetti';
             confetti.style.left = Math.random() * 100 + 'vw';
-            confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+            confetti.style.top = '-5vh';
             confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
-            document.body.appendChild(confetti);
-            setTimeout(() => {
+            confetti.style.animation = `fall ${Math.random() * 3 + 2}s linear`;
+            confettiContainer.appendChild(confetti);
+
+            confetti.addEventListener('animationend', function() {
                 confetti.remove();
-            }, 5000);
+            });
         }
-        setInterval(createConfetti, 200);
+
+        // Create initial batch of confetti
+        for (let i = 0; i < 100; i++) {
+            setTimeout(createConfetti, Math.random() * 2000);
+        }
+
+        // Continue creating confetti
+        setInterval(createConfetti, 100);
 
         // Duplicate marquee text for continuous flow
         const marquee = document.querySelector('.marquee');
